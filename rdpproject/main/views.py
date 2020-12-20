@@ -7,3 +7,7 @@ from .models import Main
 def home(request):
 
     return render(request, 'home.html')
+    
+def mylogin(request):
+
+    return render(request, 'mylogin')
