@@ -1,0 +1,134 @@
+*******************
+Install Virtual Env
+*******************
+source myvenv/bin/activate - Turn on venv
+
+deactivate - Turn off venv
+
+**************
+Install Django
+**************
+pip install django - Install django
+
+************
+Make project
+************
+django-admin startproject rdpproject - Make new website
+
+********
+Database
+********
+python manage.py migrate - Databse 
+python manage.py makemigrations - Database
+
+Change database in settings.py to connect with Firestore
+
+*************
+Allowed_Hosts
+*************
+settings.py -> allow which hosts to view page
+
+***********
+STATIC_ROOT
+***********
+STATIC_ROOT = os.path.join(BASE_DIR, 'static'); -> settings.py
+
+**********
+Admin page
+**********
+http://127.0.0.1:8000/admin/login/?next=/admin/
+
+*******
+urls.py
+*******
+from django.conf.urls import include, url -> add to urls.py
+
+url(r'^admin/', admin.site.urls)  -> admin page
+
+******************
+Create admin suser
+******************
+python manage.py createsuperuser
+username: conororeilly
+email: x171
+pw: PZ94!
+
+**********
+Create app
+**********
+python manage.py startapp main
+
+add app to settings.py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'main',
+]
+
+add app to urls.py
+urlpatterns = [
+    url(r'^admin/', admin.site.urls), # Admin page
+    url(r'', include('main.urls')), # Root
+]
+
+add urls.py to main app
+
+Create 2 dir in main app dir
+    -> templates - contains HTML files
+    -> static
+
+******************
+Models.py for main
+******************
+
+from __future__ import unicode_literals - reads all languages
+
+class Main(models.Model):
+
+    name = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+*****************
+views.py for main
+*****************
+
+Add imports
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Main
+
+def home(request):
+
+    return render(request, 'home.html')
+
+****************
+Create home.html
+****************
+Set up home page -> create home.html in main/templates
+
+In urls.py add:
+    from django.conf.urls import url
+    from . import views
+    
+    urlpatterns = [
+        url(r'^$', views.home, name='home'),
+    ]
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+
+****************
+Add app to admin
+****************
+admin.py
+
+from django.contrib import admin
+from .models import Main
+
+admin.site.register(Main)
