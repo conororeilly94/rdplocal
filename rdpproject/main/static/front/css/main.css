@@ -167,7 +167,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 /*==================================================================
 [ Top-bar ]*/
 .topbar {
-  background-color:rgb(63, 145, 63);
+  background-color: #111;
 }
 
 .content-topbar {
