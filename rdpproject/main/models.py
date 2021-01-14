@@ -6,7 +6,11 @@ from django.db import models
 
 class Main(models.Model):
 
-    name = models.TextField()
+    name = models.CharField(max_length=40)
+    about = models.TextField()
+
+    set_name = models.TextField(default="-")
 
     def __str__(self):
-        return self.name
+        
+        return self.set_name + " | " + str(self.pk)
