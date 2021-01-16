@@ -97,167 +97,36 @@
     </div>
 
     <div class="row p-t-35">
+      {% for i in posts %}
       <div class="col-sm-6 col-md-4">
         <!-- Item latest -->
         <div class="m-b-45">
-          <a href="/" class="wrap-pic-w hov1 trans-03">
+          <a href="{% url 'posts_detail' word=i.name %}" class="wrap-pic-w hov1 trans-03">
             <img src="{%static 'front/images/cystic_fibrosis.jpeg' %}" alt="IMG" />
           </a>
 
           <div class="p-t-16">
             <h5 class="p-b-5">
-              <a href="/" class="f1-m-3 cl2 hov-cl10 trans-03">
-                Latest Blog Post 1
+              <a href="{% url 'posts_detail' word=i.name %}" class="f1-m-3 cl2 hov-cl10 trans-03">
+                {{i.name}}
               </a>
             </h5>
+
+            <p>{{i.short_txt}}</p>
 
             <span class="cl8">
               <a href="/" class="f1-s-4 cl8 hov-cl10 trans-03">
-                by John Doe
+                by {{i.author}}
               </a>
 
               <span class="f1-s-3 m-rl-3"> - </span>
 
-              <span class="f1-s-3"> Dec 18 </span>
+              <span class="f1-s-3"> {{i.date}} </span>
             </span>
           </div>
         </div>
       </div>
-
-      <div class="col-sm-6 col-md-4">
-        <!-- Item latest -->
-        <div class="m-b-45">
-          <a href="/" class="wrap-pic-w hov1 trans-03">
-            <img src="{%static 'front/images/cystic_fibrosis.jpeg' %}" alt="IMG" />
-          </a>
-
-          <div class="p-t-16">
-            <h5 class="p-b-5">
-              <a href="/" class="f1-m-3 cl2 hov-cl10 trans-03">
-                Latest Blog Post 2
-              </a>
-            </h5>
-
-            <span class="cl8">
-              <a href="" class="f1-s-4 cl8 hov-cl10 trans-03">
-                by Jane Curtis
-              </a>
-
-              <span class="f1-s-3 m-rl-3"> - </span>
-
-              <span class="f1-s-3"> Dec 18 </span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-md-4">
-        <!-- Item latest -->
-        <div class="m-b-45">
-          <a href="/" class="wrap-pic-w hov1 trans-03">
-            <img src="{%static 'front/images/cystic_fibrosis.jpeg' %}" alt="IMG" />
-          </a>
-
-          <div class="p-t-16">
-            <h5 class="p-b-5">
-              <a href="/" class="f1-m-3 cl2 hov-cl10 trans-03">
-                Latest Blog Post 3
-              </a>
-            </h5>
-
-            <span class="cl8">
-              <a href="/" class="f1-s-4 cl8 hov-cl10 trans-03">
-                by David Kirwan
-              </a>
-
-              <span class="f1-s-3 m-rl-3"> - </span>
-
-              <span class="f1-s-3"> Dec 17 </span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-md-4">
-        <!-- Item latest -->
-        <div class="m-b-45">
-          <a href="/" class="wrap-pic-w hov1 trans-03">
-            <img src="{%static 'front/images/cystic_fibrosis.jpeg' %}" alt="IMG" />
-          </a>
-
-          <div class="p-t-16">
-            <h5 class="p-b-5">
-              <a href="/" class="f1-m-3 cl2 hov-cl10 trans-03">
-                Latest Blog Post 4
-              </a>
-            </h5>
-
-            <span class="cl8">
-              <a href="/" class="f1-s-4 cl8 hov-cl10 trans-03">
-                by Ryan Hade
-              </a>
-
-              <span class="f1-s-3 m-rl-3"> - </span>
-
-              <span class="f1-s-3"> Dec 17 </span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-md-4">
-        <!-- Item latest -->
-        <div class="m-b-45">
-          <a href="/" class="wrap-pic-w hov1 trans-03">
-            <img src="{%static 'front/images/cystic_fibrosis.jpeg' %}" alt="IMG" />
-          </a>
-
-          <div class="p-t-16">
-            <h5 class="p-b-5">
-              <a href="/" class="f1-m-3 cl2 hov-cl10 trans-03">
-                Latest Blog Post 5
-              </a>
-            </h5>
-
-            <span class="cl8">
-              <a href="/" class="f1-s-4 cl8 hov-cl10 trans-03">
-                by Louise McHugh
-              </a>
-
-              <span class="f1-s-3 m-rl-3"> - </span>
-
-              <span class="f1-s-3"> Dec 16 </span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-md-4">
-        <!-- Item latest -->
-        <div class="m-b-45">
-          <a href="/" class="wrap-pic-w hov1 trans-03">
-            <img src="{%static 'front/images/cystic_fibrosis.jpeg' %}" alt="IMG" />
-          </a>
-
-          <div class="p-t-16">
-            <h5 class="p-b-5">
-              <a href="/" class="f1-m-3 cl2 hov-cl10 trans-03">
-                Latest Blog Post 6
-              </a>
-            </h5>
-
-            <span class="cl8">
-              <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                by Ciaran Malone
-              </a>
-
-              <span class="f1-s-3 m-rl-3"> - </span>
-
-              <span class="f1-s-3"> Dec 16 </span>
-            </span>
-          </div>
-        </div>
-      </div>
+      {% endfor %}     
     </div>
   </div>
 </section>
