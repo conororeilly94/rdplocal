@@ -10,3 +10,10 @@ def posts_detail(request, word):
     posts = Posts.objects.filter(name=word)
 
     return render(request, 'front/posts_detail.html', {'posts':posts, 'site':site})
+
+
+def posts_list(request):
+
+    posts = Posts.objects.all()
+    
+    return render(request, 'back/posts_list.html', {'posts':posts})
