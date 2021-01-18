@@ -38,10 +38,9 @@
                         </div>
                         <div class="col-md-6">                       
                             <select id="postscat" name="postscat" class="select-chosen" data-placeholder="Choose a Category" style="width: 250px;">
-                                <option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->
-                                <option value="1">Test 1</option>
-                                <option value="2">Test 2</option>
-                                <option value="3">Test 3</option>                               
+                                {% for i in category %}
+                                <option value="{{i.pk}}">{{i.catname}} | {{i.name}}</option>     
+                                {% endfor %}                       
                             </select>                           
                         </div>
                     </div>

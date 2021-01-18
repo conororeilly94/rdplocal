@@ -7,6 +7,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls), # Admin page
     url(r'', include('main.urls')), # Root
     url(r'', include('posts.urls')), # Posts page
+    url(r'', include('category.urls')), # Categories
+    url(r'', include('subcategory.urls')), # Subctegories
 ]
 
 if settings.DEBUG:

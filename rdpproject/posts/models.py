@@ -10,6 +10,7 @@ class Posts(models.Model):
     short_txt = models.TextField()
     body_txt = models.TextField()
     date = models.CharField(max_length=12)
+    time = models.CharField(max_length=12, default = "00:00")
     img = models.TextField()
     imgurl = models.TextField(default="-")
     author = models.CharField(max_length=50)
