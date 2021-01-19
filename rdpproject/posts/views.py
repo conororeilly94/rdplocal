@@ -112,3 +112,88 @@ def posts_delete(request, pk):
         return render(request, 'back/error.html', {'error':error})
 
     return redirect('posts_list')
+
+
+def posts_edit(request, pk):
+
+    if len(Posts.objects.filter(pk=pk)) == 0:
+        error = "Post Does Not Exist"
+        return render(request, 'back/error.html', {'error':error})
+
+    posts = Posts.objects.get(pk=pk)
+    category = SubCategory.objects.all()
+
+    if request.method == 'POST':
+    
+        poststitle = request.POST.get('poststitle')
+        postscat = request.POST.get('postscat')
+        postsummary = request.POST.get('postsummary')
+        postbody = request.POST.get('postbody')
+        postid = request.POST.get('postscat')
+
+        if poststitle == '' or postsummary == '' or postbody == '' or postscat == '':
+            error = "All Fields are Required"
+            return render(request, 'back/error.html', {'error':error})
+
+        try: 
+
+            myfile = request.FILES['myfile']
+            fs = FileSystemStorage() # Make an object
+            filename = fs.save(myfile.name, myfile)
+            url = fs.url(filename)
+
+            if str(myfile.content_type).startswith("image"):
+
+                if myfile.size < 5000000:
+
+                    postname = SubCategory.objects.get(pk=postid).name
+
+                    b = Posts.objects.get(pk=pk)
+
+                    fss = FileSystemStorage()
+                    fss.delete(b.img)
+
+                    b.name = poststitle
+                    b.short_txt = postsummary
+                    b.body_txt = postbody
+                    b.img = filename
+                    b.imgurl = url
+                    b.catname = postname
+                    b.catid = postid
+
+                    b.save()
+                    return redirect('posts_list')
+
+                else:
+
+                    fs = FileSystemStorage()
+                    fs.delete(filename)
+
+                    error = "Your File is Larger than 5 MB"
+                    return render(request, 'back/error.html', {'error':error})
+            
+            else:
+
+                fs = FileSystemStorage()
+                fs.delete(filename)
+
+                # Come back to lecture 148
+                error = "Your File is Not Supported"
+                return render(request, 'back/error.html', {'error':error})
+
+        except:
+
+            postname = SubCategory.objects.get(pk=postid).name
+
+            b = Posts.objects.get(pk=pk)
+
+            b.name = poststitle
+            b.short_txt = postsummary
+            b.body_txt = postbody
+            b.catname = postname
+            b.catid = postid
+
+            b.save()
+            return redirect('posts_list')
+    
+    return render(request, 'back/posts_edit.html', {'pk':pk, 'posts':posts, 'category':category})

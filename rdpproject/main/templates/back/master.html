@@ -44,15 +44,11 @@
 
         <!-- Modernizr (browser feature detection library) -->
         <script src="{% static 'back/js/vendor/modernizr.min.js' %}"></script>
+
+        {% block headblock %}
+        {% endblock %}
     </head>
     <body>
-        <!-- Page Wrapper -->
-        <!-- In the PHP version you can set the following options from inc/config file -->
-        <!--
-            Available classes:
-
-            'page-loading'      enables page preloader
-        -->
         <div id="page-wrapper">
             <!-- Preloader -->
             <!-- Preloader functionality (initialized in js/app.js) - pageLoading() -->
