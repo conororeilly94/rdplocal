@@ -4,6 +4,7 @@ from main.models import Main
 from django.core.files.storage import FileSystemStorage
 import datetime
 from subcategory.models import SubCategory
+from category.models import Category
 
 # Create your views here.
 
@@ -64,10 +65,18 @@ def posts_add(request):
                 if myfile.size < 5000000:
 
                     postname = SubCategory.objects.get(pk=postid).name
+                    ocatid = SubCategory.objects.get(pk=postid).catid
 
-                    b = Posts(name = poststitle, short_txt = postsummary, body_txt = postbody, date = today, img = filename, imgurl = url, author = "-", 
-                                catname = postname, catid = postid, views = 0, time = time)
+                    b = Posts(name = poststitle, short_txt = postsummary, body_txt = postbody, date = today, img = filename, imgurl = url, 
+                                author = "-", catname = postname, catid = postid, views = 0, time = time, ocatid = ocatid)
                     b.save()
+
+                    count = len(Posts.objects.filter(ocatid = ocatid))
+
+                    b = Category.objects.get(pk = ocatid)
+                    b.count = count
+                    b.save()
+
                     return redirect('posts_list')
 
                 else:
@@ -104,7 +113,15 @@ def posts_delete(request, pk):
         fs = FileSystemStorage()
         fs.delete(b.img)
 
+        ocatid = Posts.objects.get(pk=pk).ocatid
+
         b.delete()
+        
+        count = len(Posts.objects.filter(ocatid = ocatid))
+
+        m = Category.objects.get(pk = ocatid)
+        m.count = count
+        m.save()
 
     except:
 
