@@ -8,8 +8,13 @@ class Main(models.Model):
 
     name = models.CharField(max_length=40)
     about = models.TextField()
-
     set_name = models.TextField(default="-")
+
+    logourl = models.TextField(default="")
+    logoname = models.TextField(default="")
+
+    logourl2 = models.TextField(default="")
+    logoname2 = models.TextField(default="")
 
     def __str__(self):
         
