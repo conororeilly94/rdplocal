@@ -4,6 +4,7 @@ from .models import Main
 from posts.models import Posts
 from category.models import Category
 from subcategory.models import SubCategory
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -26,4 +27,36 @@ def about(request):
 
 def panel(request):
 
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
     return render(request, 'back/home.html')
+
+
+def mylogin(request):
+
+    if request.method == 'POST':
+
+        # 182
+        uuser = request.POST.get('username')
+        upassword = request.POST.get('password')
+
+        if uuser != "" and upassword != "":
+
+            user = authenticate(username = uuser, password = upassword)
+
+            if user != None:
+
+                login(request, user)
+                return redirect('panel')
+
+    return render(request, 'front/login.html')
+
+
+def mylogout(request):
+
+    logout(request)
+
+    return redirect('mylogin')

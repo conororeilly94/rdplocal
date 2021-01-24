@@ -5,12 +5,25 @@ from .models import Category
 
 def cat_list(request):
 
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
+    return render(request, 'back/home.html')
 
     category = Category.objects.all()
     return render(request, 'back/category_list.html', {'category':category})
 
 
-def cat_add(request):   
+def cat_add(request):
+
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
+    return render(request, 'back/home.html')
 
     if request.method == 'POST':
 

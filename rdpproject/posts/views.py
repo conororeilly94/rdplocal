@@ -18,12 +18,26 @@ def posts_detail(request, word):
 
 def posts_list(request):
 
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
+    return render(request, 'back/home.html')
+
     posts = Posts.objects.all()
     
     return render(request, 'back/posts_list.html', {'posts':posts})
 
 
 def posts_add(request):
+
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
+    return render(request, 'back/home.html')
 
     now = datetime.datetime.now()
     year = now.year
@@ -106,6 +120,13 @@ def posts_add(request):
 
 def posts_delete(request, pk):
 
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
+    return render(request, 'back/home.html')
+
     try:
 
         b = Posts.objects.get(pk=pk)
@@ -132,6 +153,13 @@ def posts_delete(request, pk):
 
 
 def posts_edit(request, pk):
+
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
+    return render(request, 'back/home.html')
 
     if len(Posts.objects.filter(pk=pk)) == 0:
         error = "Post Does Not Exist"
