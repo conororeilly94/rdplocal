@@ -259,53 +259,23 @@
               </div>
 
               <ul>
+                {% for pop in popularposts2 %}
                 <li class="flex-wr-sb-s p-b-20">
                   <a href="/" class="size-w-4 wrap-pic-w hov1 trans-03">
-                    <img src="{%static 'front/images/cystic_fibrosis.jpeg' %}" alt="IMG" />
+                    <img src="{{pop.imgurl}}" alt="IMG" />
                   </a>
 
                   <div class="size-w-5">
                     <h6 class="p-b-5">
                       <a href="/" class="f1-s-5 cl11 hov-cl10 trans-03">
-                        Popular Blog Post 1
+                        {{pop.name}}
                       </a>
                     </h6>
 
-                    <span class="f1-s-3 cl6"> Dec 20 </span>
+                    <span class="f1-s-3 cl6"> {{pop.date}} </span>
                   </div>
                 </li>
-
-                <li class="flex-wr-sb-s p-b-20">
-                  <a href="/" class="size-w-4 wrap-pic-w hov1 trans-03">
-                    <img src="{%static 'front/images/cystic_fibrosis.jpeg' %}" alt="IMG" />
-                  </a>
-
-                  <div class="size-w-5">
-                    <h6 class="p-b-5">
-                      <a href="/" class="f1-s-5 cl11 hov-cl10 trans-03">
-                        Popular Blog Post 2
-                      </a>
-                    </h6>
-
-                    <span class="f1-s-3 cl6"> Dec 19 </span>
-                  </div>
-                </li>
-
-                <li class="flex-wr-sb-s p-b-20">
-                  <a href="/" class="size-w-4 wrap-pic-w hov1 trans-03">
-                    <img src="{%static 'front/images/cystic_fibrosis.jpeg' %}" alt="IMG" />
-                  </a>
-
-                  <div class="size-w-5">
-                    <h6 class="p-b-5">
-                      <a href="/" class="f1-s-5 cl11 hov-cl10 trans-03">
-                        Popular Blog Post 3
-                      </a>
-                    </h6>
-
-                    <span class="f1-s-3 cl6"> Dec 17 </span>
-                  </div>
-                </li>
+                {% endfor %}
               </ul>
             </div>
 

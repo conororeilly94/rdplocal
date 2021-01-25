@@ -11,9 +11,29 @@ from category.models import Category
 def posts_detail(request, word):
     
     site = Main.objects.get(pk=2)
-    posts = Posts.objects.filter(name=word)
+    posts = Posts.objects.all().order_by('-pk')
+    category = Category.objects.all()
+    subcategory = SubCategory.objects.all()
+    lastposts = Posts.objects.all().order_by('-pk')[:3]
 
-    return render(request, 'front/posts_detail.html', {'posts':posts, 'site':site})
+    showposts = Posts.objects.filter(name=word)
+    popularposts = Posts.objects.all().order_by('-views')
+    popularposts2 = Posts.objects.all().order_by('-views')[:3]
+
+    tagname = Posts.objects.get(name=word).tag
+    tag = tagname.split(',')
+
+    try:
+        # View count
+        myposts = Posts.objects.get(name=word)
+        myposts.views = myposts.views + 1
+        myposts.save()
+    
+    except:
+
+        print("Can't Add Show")
+
+    return render(request, 'front/posts_detail.html', {'posts':posts, 'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'showposts':showposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'tag':tag})
 
 
 def posts_list(request):
@@ -22,8 +42,6 @@ def posts_list(request):
     if not request.user.is_authenticated:
         return redirect('mylogin')
     # End login check
-
-    return render(request, 'back/home.html')
 
     posts = Posts.objects.all()
     
@@ -36,8 +54,6 @@ def posts_add(request):
     if not request.user.is_authenticated:
         return redirect('mylogin')
     # End login check
-
-    return render(request, 'back/home.html')
 
     now = datetime.datetime.now()
     year = now.year
@@ -52,8 +68,7 @@ def posts_add(request):
     today = str(year) + "/" + str(month) + "/" + str(day)
     time = str(now.hour) + ":" + str(now.minute)
 
-    category = SubCategory.objects.all()
-    
+    category = SubCategory.objects.all()    
 
     if request.method == 'POST':
 
@@ -62,6 +77,7 @@ def posts_add(request):
         postsummary = request.POST.get('postsummary')
         postbody = request.POST.get('postbody')
         postid = request.POST.get('postscat')
+        tag = request.POST.get('tag')
 
         if poststitle == '' or postsummary == '' or postbody == '' or postscat == '':
             error = "All Fields are Required"
@@ -82,7 +98,7 @@ def posts_add(request):
                     ocatid = SubCategory.objects.get(pk=postid).catid
 
                     b = Posts(name = poststitle, short_txt = postsummary, body_txt = postbody, date = today, img = filename, imgurl = url, 
-                                author = "-", catname = postname, catid = postid, views = 0, time = time, ocatid = ocatid)
+                                author = "-", catname = postname, catid = postid, views = 0, time = time, ocatid = ocatid, tag = tag)
                     b.save()
 
                     count = len(Posts.objects.filter(ocatid = ocatid))
@@ -125,8 +141,6 @@ def posts_delete(request, pk):
         return redirect('mylogin')
     # End login check
 
-    return render(request, 'back/home.html')
-
     try:
 
         b = Posts.objects.get(pk=pk)
@@ -159,8 +173,6 @@ def posts_edit(request, pk):
         return redirect('mylogin')
     # End login check
 
-    return render(request, 'back/home.html')
-
     if len(Posts.objects.filter(pk=pk)) == 0:
         error = "Post Does Not Exist"
         return render(request, 'back/error.html', {'error':error})
@@ -175,6 +187,7 @@ def posts_edit(request, pk):
         postsummary = request.POST.get('postsummary')
         postbody = request.POST.get('postbody')
         postid = request.POST.get('postscat')
+        tag = request.POST.get('tag')
 
         if poststitle == '' or postsummary == '' or postbody == '' or postscat == '':
             error = "All Fields are Required"
@@ -205,6 +218,7 @@ def posts_edit(request, pk):
                     b.imgurl = url
                     b.catname = postname
                     b.catid = postid
+                    b.tag = tag
 
                     b.save()
                     return redirect('posts_list')
@@ -237,6 +251,7 @@ def posts_edit(request, pk):
             b.body_txt = postbody
             b.catname = postname
             b.catid = postid
+            b.tag = tag
 
             b.save()
             return redirect('posts_list')

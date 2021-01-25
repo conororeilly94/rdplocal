@@ -16,8 +16,10 @@ def home(request):
     category = Category.objects.all()
     subcategory = SubCategory.objects.all()
     lastposts = Posts.objects.all().order_by('-pk')[:3]
+    popularposts = Posts.objects.all().order_by('-views')
+    popularposts2 = Posts.objects.all().order_by('-views')[:3]
 
-    return render(request, 'front/home.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts})
+    return render(request, 'front/home.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2})
     
 def about(request):
 
