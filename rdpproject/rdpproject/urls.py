@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'', include('posts.urls')), # Posts page
     url(r'', include('category.urls')), # Categories
     url(r'', include('subcategory.urls')), # Subctegories
+    url(r'', include('contactform.urls')), # Contact Form
 ]
 
 if settings.DEBUG:

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'posts',
     'category',
     'subcategory',
+    'contactform',
 ]
 
 MIDDLEWARE = [

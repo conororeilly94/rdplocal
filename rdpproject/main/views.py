@@ -24,8 +24,13 @@ def home(request):
 def about(request):
 
     site = Main.objects.get(pk=2)
+    posts = Posts.objects.all().order_by('-pk')
+    category = Category.objects.all()
+    subcategory = SubCategory.objects.all()
+    lastposts = Posts.objects.all().order_by('-pk')[:3]
+    popularposts2 = Posts.objects.all().order_by('-views')[:3]
 
-    return render(request, 'front/about.html', {'site':site})
+    return render(request, 'front/about.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts2':popularposts2})
 
 
 def panel(request):
@@ -128,3 +133,40 @@ def site_setting(request):
     site = Main.objects.get(pk=2)
 
     return render(request, 'back/setting.html', {'site':site})
+
+
+def about_setting(request):
+
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
+    if request.method == "POST":
+
+        text = request.POST.get('text')
+
+        if text == "":
+
+            error = "All Fields Required"
+            return render(request, 'back/error.html', {'error':error})
+
+        b = Main.objects.get(pk=2)
+        b.abouttext = text
+        b.save()
+
+    about = Main.objects.get(pk=2).abouttext
+
+    return render(request, 'back/about_setting.html', {'about':about})
+
+
+def contact(request):
+
+    site = Main.objects.get(pk=2)
+    posts = Posts.objects.all().order_by('-pk')
+    category = Category.objects.all()
+    subcategory = SubCategory.objects.all()
+    lastposts = Posts.objects.all().order_by('-pk')[:3]
+    popularposts2 = Posts.objects.all().order_by('-views')[:3]
+
+    return render(request, 'front/contact.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts2':popularposts2})
