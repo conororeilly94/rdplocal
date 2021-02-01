@@ -7,6 +7,7 @@ from subcategory.models import SubCategory
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
+from manager.models import Manager
 
 # Create your views here.
 
@@ -60,6 +61,60 @@ def mylogin(request):
 
                 login(request, user)
                 return redirect('panel')
+
+    return render(request, 'front/login.html')
+
+
+def myregister(request):
+    
+    if request.method == 'POST':
+
+        name = request.POST.get('name')
+        uname = request.POST.get('uname')
+        email = request.POST.get('email')
+        pass1 = request.POST.get('password1')
+        pass2 = request.POST.get('password2')
+
+        if name == "":
+            msg = "Please Input your Name"
+            return render(request, 'front/message.html', {'msg': msg})
+
+        # Check if passwords match
+        if pass1 != pass2:
+            msg = "Your Passwords do not Match"
+            return render(request, 'front/message.html', {'msg': msg})
+
+        # Check strenth of new password
+        count1 = 0
+        count2 = 0
+        count3 = 0
+        count4 = 0
+
+        for i in pass1 :
+
+            if i > "0" and i < "9" :
+                count1 = 1
+            if i > "A" and i < "Z" :
+                count2 = 1
+            if i > 'a' and i < 'z' :
+                count3 = 1
+            if i > "!" and i < "@" :
+                count4 = 1
+
+        if count1 == 0 or count2 == 0 or count3 == 0 or count4 == 0:
+            msg = "Your Passwords is Not Strong Enough"
+            return render(request, 'front/message.html', {'msg': msg})
+
+        # Contains at least 8 chars
+        if len(pass1) < 8:
+            msg = "Your Passwords must be at Least 8 Characters"
+            return render(request, 'front/message.html', {'msg': msg})
+
+        # If user and email not in DB, then create user
+        if len(User.objects.filter(username = uname)) == 0 and len(User.objects.filter(email = email)) == 0:
+            user = User.objects.create_user(username = uname, email = email, password = pass1)
+            b = Manager(name = name, utxt = uname, email = email)
+            b.save()
 
     return render(request, 'front/login.html')
 

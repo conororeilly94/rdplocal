@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'', include('category.urls')), # Categories
     url(r'', include('subcategory.urls')), # Subctegories
     url(r'', include('contactform.urls')), # Contact Form
+    url(r'', include('manager.urls')), # Manager Form
 ]
 
 if settings.DEBUG:
