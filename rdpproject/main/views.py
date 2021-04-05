@@ -6,7 +6,7 @@ from category.models import Category
 from subcategory.models import SubCategory
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 from manager.models import Manager
 
 # Create your views here.
@@ -41,6 +41,15 @@ def panel(request):
     if not request.user.is_authenticated:
         return redirect('mylogin')
     # End login check
+
+    perm = 0
+    perms = Permission.objects.filter(user=request.user)
+    for i in perms:
+        if i.codename == "master_user" : perm = 1
+
+    if perm == 0:
+        error = "Access Denied"
+        return render(request, 'back/error.html', {'error':error})
 
     return render(request, 'back/home.html')
 

@@ -5,6 +5,13 @@ source myvenv/bin/activate - Turn on venv
 
 deactivate - Turn off venv
 
+***********
+Push to Git
+***********
+git add .
+git commit -m 'message'
+git push -u origin master
+
 **************
 Install Django
 **************
@@ -58,7 +65,7 @@ Create app
 **********
 python manage.py startapp main
 
-add app to settings.py
+add main to settings.py
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -119,6 +126,9 @@ In urls.py add:
         url(r'^$', views.home, name='home'),
     ]
 
+**********************************************
+If we make changes in the model, must do below
+**********************************************
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
@@ -132,3 +142,26 @@ from django.contrib import admin
 from .models import Main
 
 admin.site.register(Main)
+
+*******
+Routing
+*******
+Make changes in urls.py and html file
+
+*******************
+Change name of page
+*******************
+views.py and admin page (Site Settings)
+
+************************
+Change fields in posts
+************************
+models.py - add fields
+add to views.py
+create urls.py file
+add to admin.py
+
+*****************************
+Make user groups & permission
+*****************************
+Go to lecture 218

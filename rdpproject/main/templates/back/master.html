@@ -98,10 +98,12 @@
                             
                             <!-- Sidebar Navigation -->
                             <ul class="sidebar-nav">
-                                                               
+                                       
+                                {% if perms.main.master_user %}
                                 <li>
                                     <a href="/panel" class=" active"><i class="gi gi-stopwatch sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
-                                </li>                
+                                </li>  
+                                {% endif %}              
                                 <!-- Permissions for masteruser only -->
                                 <!-- Can change in the panel -->
                                 {% if request.user|has_group:"masteruser" %}           
@@ -129,6 +131,10 @@
 
                                 <li>
                                     <a href="/panel/manager/group/" class=""><i class="gi gi-show_big_thumbnails sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Group</span></a>
+                                </li>
+
+                                <li>
+                                    <a href="/panel/manager/perms/" class=""><i class="gi gi-show_big_thumbnails sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Permissions</span></a>
                                 </li>
                                 
                                 <li class="sidebar-header">

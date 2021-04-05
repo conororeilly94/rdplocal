@@ -80,6 +80,7 @@ WSGI_APPLICATION = 'rdpproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# https://www.vphventures.com/how-to-migrate-your-django-project-from-sqlite-to-postgresql/
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
