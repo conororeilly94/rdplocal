@@ -14,12 +14,12 @@ from manager.models import Manager
 def home(request):
 
     site = Main.objects.get(pk=2)
-    posts = Posts.objects.all().order_by('-pk')
+    posts = Posts.objects.filter(act=1).order_by('-pk')
     category = Category.objects.all()
     subcategory = SubCategory.objects.all()
-    lastposts = Posts.objects.all().order_by('-pk')[:3]
-    popularposts = Posts.objects.all().order_by('-views')
-    popularposts2 = Posts.objects.all().order_by('-views')[:3]
+    lastposts = Posts.objects.filter(act=1).order_by('-pk')[:3]
+    popularposts = Posts.objects.filter(act=1).order_by('-views')
+    popularposts2 = Posts.objects.filter(act=1).order_by('-views')[:3]
 
     return render(request, 'front/home.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2})
     
@@ -47,9 +47,9 @@ def panel(request):
     for i in perms:
         if i.codename == "master_user" : perm = 1
 
-    if perm == 0:
-        error = "Access Denied"
-        return render(request, 'back/error.html', {'error':error})
+    # if perm == 0:
+    #     error = "Access Denied"
+    #     return render(request, 'back/error.html', {'error':error})
 
     return render(request, 'back/home.html')
 

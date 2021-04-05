@@ -19,6 +19,7 @@ class Posts(models.Model):
     ocatid = models.IntegerField(default=0) # Orig Category ID
     views = models.IntegerField(default=0)
     tag = models.TextField(default='')
+    act = models.IntegerField(default=0)
 
     def __str__(self):
         

@@ -43,7 +43,14 @@ def posts_list(request):
         return redirect('mylogin')
     # End login check
 
-    posts = Posts.objects.all()
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser" : perm = 1
+
+    if perm == 0:
+        posts = Posts.objects.filter(author=request.user)
+    elif perm == 1:
+        posts = Posts.objects.all()    
     
     return render(request, 'back/posts_list.html', {'posts':posts})
 
@@ -98,7 +105,7 @@ def posts_add(request):
                     ocatid = SubCategory.objects.get(pk=postid).catid
 
                     b = Posts(name = poststitle, short_txt = postsummary, body_txt = postbody, date = today, img = filename, imgurl = url, 
-                                author = "-", catname = postname, catid = postid, views = 0, time = time, ocatid = ocatid, tag = tag)
+                                author = request.user, catname = postname, catid = postid, views = 0, time = time, ocatid = ocatid, tag = tag)
                     b.save()
 
                     count = len(Posts.objects.filter(ocatid = ocatid))
@@ -141,6 +148,16 @@ def posts_delete(request, pk):
         return redirect('mylogin')
     # End login check
 
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser" : perm = 1
+
+    if perm == 0:
+        a = Posts.objects.get(pk=pk).author
+        if str(a) != str(request.user):
+            error = "Access Denied"
+            return render(request, 'back/error.html', {'error':error})
+
     try:
 
         b = Posts.objects.get(pk=pk)
@@ -176,6 +193,16 @@ def posts_edit(request, pk):
     if len(Posts.objects.filter(pk=pk)) == 0:
         error = "Post Does Not Exist"
         return render(request, 'back/error.html', {'error':error})
+
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser" : perm = 1
+
+    if perm == 0:
+        a = Posts.objects.get(pk=pk).author
+        if str(a) != str(request.user):
+            error = "Access Denied"
+            return render(request, 'back/error.html', {'error':error})
 
     posts = Posts.objects.get(pk=pk)
     category = SubCategory.objects.all()
@@ -219,6 +246,7 @@ def posts_edit(request, pk):
                     b.catname = postname
                     b.catid = postid
                     b.tag = tag
+                    b.act = 0
 
                     b.save()
                     return redirect('posts_list')
@@ -257,3 +285,17 @@ def posts_edit(request, pk):
             return redirect('posts_list')
     
     return render(request, 'back/posts_edit.html', {'pk':pk, 'posts':posts, 'category':category})
+
+
+def posts_publish(request, pk):
+    
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
+    posts = Posts.objects.get(pk=pk)
+    posts.act = 1
+    posts.save()
+
+    return redirect('posts_list')

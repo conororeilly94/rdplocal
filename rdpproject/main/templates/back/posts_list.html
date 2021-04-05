@@ -35,6 +35,7 @@
                     <th>Category</th>
                     <th>Author</th>
                     <th>Views</th>
+                    <th>Status</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -46,12 +47,20 @@
                     <td>{{i.name}}</td>
                     <td>{{i.date}} | {{i.time}}</td>
                     <td>{{i.catname}}</td>
-                    <td>{{i.author}}</td>                    
+                    <td>{{i.author}}</td>  
+                    {% if i.act == 0 %} 
+                        <td>Pending</td>
+                    {% elif i.act == 1 %}      
+                        <td>Confirmed</td>
+                    {% endif %}
                     <td>{{i.views}}</td>
                     <td class="text-center">
                         <div class="btn-group">
                             <a href="{% url 'posts_edit' pk=i.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil">Edit</i></a>
                             <a href="{% url 'posts_delete' pk=i.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
+                            {% if perms.main.master_user %}
+                                <a href="{% url 'posts_publish' pk=i.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil">Publish</i></a>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>

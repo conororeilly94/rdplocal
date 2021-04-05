@@ -6,5 +6,6 @@ urlpatterns = [
     url(r'^panel/posts/list/$', views.posts_list, name='posts_list'),
     url(r'^panel/posts/add/$', views.posts_add, name='posts_add'),
     url(r'^panel/posts/del/(?P<pk>\d+)$', views.posts_delete, name='posts_delete'),
-    url(r'^panel/posts/edit/(?P<pk>\d+)$', views.posts_edit, name='posts_edit'),    
+    url(r'^panel/posts/edit/(?P<pk>\d+)$', views.posts_edit, name='posts_edit'),
+    url(r'^panel/posts/publish/(?P<pk>\d+)$', views.posts_publish, name='posts_publish'),
 ]
