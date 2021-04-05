@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'category',
     'subcategory',
     'contactform',
-    'manager'
+    'manager',
+    'newsletter'
 ]
 
 MIDDLEWARE = [

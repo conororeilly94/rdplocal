@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'', include('subcategory.urls')), # Subctegories
     url(r'', include('contactform.urls')), # Contact Form
     url(r'', include('manager.urls')), # Manager Form
+    url(r'', include('newsletter.urls')),
 ]
 
 if settings.DEBUG:
