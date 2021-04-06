@@ -5,6 +5,7 @@ from django.core.files.storage import FileSystemStorage
 import datetime
 from subcategory.models import SubCategory
 from category.models import Category
+import random
 
 # Create your views here.
 
@@ -26,6 +27,34 @@ def posts_detail(request, word):
     try:
         # View count
         myposts = Posts.objects.get(name=word)
+        myposts.views = myposts.views + 1
+        myposts.save()
+    
+    except:
+
+        print("Can't Add Show")
+
+    return render(request, 'front/posts_detail.html', {'posts':posts, 'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'showposts':showposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'tag':tag})
+
+
+def posts_detail_short(request, pk):
+    
+    site = Main.objects.get(pk=2)
+    posts = Posts.objects.all().order_by('-pk')
+    category = Category.objects.all()
+    subcategory = SubCategory.objects.all()
+    lastposts = Posts.objects.all().order_by('-pk')[:3]
+
+    showposts = Posts.objects.filter(rand=pk)
+    popularposts = Posts.objects.all().order_by('-views')
+    popularposts2 = Posts.objects.all().order_by('-views')[:3]
+
+    tagname = Posts.objects.get(rand=pk).tag
+    tag = tagname.split(',')
+
+    try:
+        # View count
+        myposts = Posts.objects.get(rand=pk)
         myposts.views = myposts.views + 1
         myposts.save()
     
@@ -75,6 +104,16 @@ def posts_add(request):
     today = str(year) + "/" + str(month) + "/" + str(day)
     time = str(now.hour) + ":" + str(now.minute)
 
+    date = str(year) + str(month) + str(day)
+    randint = str(random.randint(1000,9999))
+    rand = date + randint
+    rand = int(rand)
+
+    while len(Posts.objects.filter(rand=rand)) != 0:
+        randint = str(random.randint(1000,9999))
+        rand = date + randint
+        rand = int(rand)
+
     category = SubCategory.objects.all()    
 
     if request.method == 'POST':
@@ -105,7 +144,7 @@ def posts_add(request):
                     ocatid = SubCategory.objects.get(pk=postid).catid
 
                     b = Posts(name = poststitle, short_txt = postsummary, body_txt = postbody, date = today, img = filename, imgurl = url, 
-                                author = request.user, catname = postname, catid = postid, views = 0, time = time, ocatid = ocatid, tag = tag)
+                                author = request.user, catname = postname, catid = postid, views = 0, time = time, ocatid = ocatid, tag = tag, rand=rand)
                     b.save()
 
                     count = len(Posts.objects.filter(ocatid = ocatid))

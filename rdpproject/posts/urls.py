@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^panel/posts/del/(?P<pk>\d+)$', views.posts_delete, name='posts_delete'),
     url(r'^panel/posts/edit/(?P<pk>\d+)$', views.posts_edit, name='posts_edit'),
     url(r'^panel/posts/publish/(?P<pk>\d+)$', views.posts_publish, name='posts_publish'),
+    url(r'^urls/(?P<pk>\d+)$', views.posts_detail_short, name='posts_detail_short'),
 ]

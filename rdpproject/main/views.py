@@ -8,6 +8,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User, Group, Permission
 from manager.models import Manager
+import random
+import string
+from random import randint
 
 # Create your views here.
 
@@ -47,11 +50,17 @@ def panel(request):
     for i in perms:
         if i.codename == "master_user" : perm = 1
 
-    # if perm == 0:
-    #     error = "Access Denied"
-    #     return render(request, 'back/error.html', {'error':error})
+    # test = ['!', '@', '#', '$', '%']
+    # rand = ""
+    # for i in range(5):
+    #     rand = rand + random.choice(string.ascii_letters)
+    #     rand += random.choice(test)
+    #     rand += str(random.randint(0,9))
 
-    return render(request, 'back/home.html')
+    count = Posts.objects.count()
+    rand = Posts.objects.all()[randint(0,count-1)]
+
+    return render(request, 'back/home.html', {'rand':rand})
 
 
 def mylogin(request):
