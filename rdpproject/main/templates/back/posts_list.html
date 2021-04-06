@@ -67,6 +67,23 @@
                 {% endfor %}
             </tbody>
         </table>
+        Page {{posts.number}} From {{posts.paginator.num_pages}}
+        <br/><br/>
+        {% if posts.has_previous %}
+            <a href="?page={{posts.previous_page_number}}" data-toggle="tooltip" title="Previous" class="btn btn-xs btn-default">Previous</a>
+        {% endif %}
+
+        {% for i in posts.paginator.page_range %}
+            {% if posts.number == i %}
+                <a href="#" onclick="return false;" data-toggle="tooltip" title="{{Disables}}" class="btn btn-xs btn-default">{{i}}</a>
+            {% else %}
+                <a href="?page={{i}}" data-toggle="tooltip" title="{{i}}" class="btn btn-xs btn-default">{{i}}</a>
+            {% endif %}
+        {% endfor %}
+        
+        {% if posts.has_next %}
+            <a href="?page={{posts.next_page_number}}" data-toggle="tooltip" title="Next" class="btn btn-xs btn-default">Next</a>
+        {% endif %}
     </div>
 </div>
 <!-- END Datatables Content -->

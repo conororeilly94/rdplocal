@@ -7,6 +7,7 @@ from subcategory.models import SubCategory
 from category.models import Category
 import random
 from comment.models import Comment
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -39,7 +40,9 @@ def posts_detail(request, word):
     comment = Comment.objects.filter(posts_id=code, status=1).order_by('-pk')[:3]
     cmcount = len(comment)
 
-    return render(request, 'front/posts_detail.html', {'posts':posts, 'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'showposts':showposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'tag':tag, 'code':code, 'comment':comment, 'cmcount':cmcount})
+    return render(request, 'front/posts_detail.html', {'posts':posts, 'site':site, 'posts':posts, 'category':category, 
+                            'subcategory':subcategory, 'lastposts':lastposts, 'showposts':showposts, 'popularposts':popularposts, 
+                            'popularposts2':popularposts2, 'tag':tag, 'code':code, 'comment':comment, 'cmcount':cmcount})
 
 
 def posts_detail_short(request, pk):
@@ -84,7 +87,19 @@ def posts_list(request):
     if perm == 0:
         posts = Posts.objects.filter(author=request.user)
     elif perm == 1:
-        posts = Posts.objects.all()    
+        postss = Posts.objects.all()
+        paginator = Paginator(postss,5)
+        page = request.GET.get('page')
+
+        try:
+            posts = paginator.page(page)
+
+        except EmptyPage:
+            posts = paginator.page(paginator.num_page)
+
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+
     
     return render(request, 'back/posts_list.html', {'posts':posts})
 

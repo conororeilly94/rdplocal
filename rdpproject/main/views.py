@@ -60,9 +60,7 @@ def panel(request):
     # count = Posts.objects.count()
     # rand = Posts.objects.all()[randint(0,count-1)]
 
-    rand = 16467383
-
-    return render(request, 'back/home.html', {'rand':rand})
+    return render(request, 'back/home.html', {})
 
 
 def mylogin(request):
