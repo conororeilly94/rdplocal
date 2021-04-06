@@ -6,6 +6,7 @@ import datetime
 from subcategory.models import SubCategory
 from category.models import Category
 import random
+from comment.models import Comment
 
 # Create your views here.
 
@@ -34,7 +35,11 @@ def posts_detail(request, word):
 
         print("Can't Add Show")
 
-    return render(request, 'front/posts_detail.html', {'posts':posts, 'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'showposts':showposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'tag':tag})
+    code = Posts.objects.get(name=word).pk
+    comment = Comment.objects.filter(posts_id=code, status=1).order_by('-pk')[:3]
+    cmcount = len(comment)
+
+    return render(request, 'front/posts_detail.html', {'posts':posts, 'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'showposts':showposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'tag':tag, 'code':code, 'comment':comment, 'cmcount':cmcount})
 
 
 def posts_detail_short(request, pk):

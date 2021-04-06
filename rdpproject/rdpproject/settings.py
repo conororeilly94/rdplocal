@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'subcategory',
     'contactform',
     'manager',
-    'newsletter'
+    'newsletter',
+    'django.contrib.humanize',
+    'comment',
 ]
 
 MIDDLEWARE = [

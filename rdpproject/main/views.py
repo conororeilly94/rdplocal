@@ -57,8 +57,10 @@ def panel(request):
     #     rand += random.choice(test)
     #     rand += str(random.randint(0,9))
 
-    count = Posts.objects.count()
-    rand = Posts.objects.all()[randint(0,count-1)]
+    # count = Posts.objects.count()
+    # rand = Posts.objects.all()[randint(0,count-1)]
+
+    rand = 16467383
 
     return render(request, 'back/home.html', {'rand':rand})
 
