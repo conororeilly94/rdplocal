@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^contact/$', views.contact, name='contact'),
     url(r'^panel/change/pass/$', views.change_pass, name='change_pass'),
     url(r'^register/$', views.myregister, name='myregister'),
+    url(r'^answer/comments/(?P<pk>\d+)/$', views.answer_contactform, name='answer_contactform'),
 ]

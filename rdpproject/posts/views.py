@@ -358,3 +358,57 @@ def posts_publish(request, pk):
     posts.save()
 
     return redirect('posts_list')
+
+
+def posts_all_show(request, word):
+
+    catid = Category.objects.get(name=word).pk
+    allposts = Posts.objects.filter(ocatid=catid)
+
+    site = Main.objects.get(pk=2)
+    posts = Posts.objects.filter(act=1).order_by('-pk')
+    category = Category.objects.all()
+    subcategory = SubCategory.objects.all()
+    lastposts = Posts.objects.filter(act=1).order_by('-pk')[:3]
+    popularposts = Posts.objects.filter(act=1).order_by('-views')
+    popularposts2 = Posts.objects.filter(act=1).order_by('-views')[:3]
+    lastposts2 = Posts.objects.filter(act=1).order_by('-pk')[:4]
+
+    return render(request, 'front/all_posts.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'lastposts2':lastposts2, 'allposts':allposts})
+    
+
+def all_posts(request):
+    
+    allposts = Posts.objects.all()
+
+    site = Main.objects.get(pk=2)
+    posts = Posts.objects.filter(act=1).order_by('-pk')
+    category = Category.objects.all()
+    subcategory = SubCategory.objects.all()
+    lastposts = Posts.objects.filter(act=1).order_by('-pk')[:3]
+    popularposts = Posts.objects.filter(act=1).order_by('-views')
+    popularposts2 = Posts.objects.filter(act=1).order_by('-views')[:3]
+    lastposts2 = Posts.objects.filter(act=1).order_by('-pk')[:4]
+
+    return render(request, 'front/all_posts_full.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'lastposts2':lastposts2, 'allposts':allposts})
+
+
+def all_posts_search(request):
+
+    if request.method == 'POST':
+
+        txt = request.POST.get('txt')
+        print(txt)
+    
+    allposts = Posts.objects.filter(name=txt)
+
+    site = Main.objects.get(pk=2)
+    posts = Posts.objects.filter(act=1).order_by('-pk')
+    category = Category.objects.all()
+    subcategory = SubCategory.objects.all()
+    lastposts = Posts.objects.filter(act=1).order_by('-pk')[:3]
+    popularposts = Posts.objects.filter(act=1).order_by('-views')
+    popularposts2 = Posts.objects.filter(act=1).order_by('-views')[:3]
+    lastposts2 = Posts.objects.filter(act=1).order_by('-pk')[:4]
+
+    return render(request, 'front/all_posts_full.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'lastposts2':lastposts2, 'allposts':allposts})

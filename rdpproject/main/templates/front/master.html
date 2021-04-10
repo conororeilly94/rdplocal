@@ -73,9 +73,9 @@
           <div class="content-topbar h-100 p-rl-30">
             <div class="align-self-stretch size-w-0 pos-relative m-r-30">
               <div class="f2-s-1 flex-wr-s-c s-full ab-t-l p-b-2">
-                <span class="text-uppercase cl0 p-r-8">
+                <a href="/" class="text-uppercase cl0 p-r-8">
                   Rare Disease Platform
-                </span>
+                </a>
               </div>
             </div>
             <div class="flex-wr-e-c">
@@ -218,6 +218,10 @@
               {% endif %}
               {% endfor %}
 
+              <li class="main-menu-active">
+                <a href="/all/posts/">All Posts</a>
+              </li>
+
             </ul>
           </nav>
         </div>
@@ -293,7 +297,7 @@
                 {% for i in category %}
                 {% if i.count != 0 %}
                 <li class="how-bor1 p-rl-5 p-tb-10">
-                  <a href="/" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">                    
+                  <a href="{% url 'posts_all_show' word=i.name %}" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">                    
                     {{i.name}} ({{i.count}})                    
                   </a>
                 </li>
