@@ -23,8 +23,9 @@ def home(request):
     lastposts = Posts.objects.filter(act=1).order_by('-pk')[:3]
     popularposts = Posts.objects.filter(act=1).order_by('-views')
     popularposts2 = Posts.objects.filter(act=1).order_by('-views')[:3]
+    lastposts2 = Posts.objects.filter(act=1).order_by('-pk')[:4]
 
-    return render(request, 'front/home.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2})
+    return render(request, 'front/home.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'lastposts2':lastposts2})
     
 def about(request):
 
