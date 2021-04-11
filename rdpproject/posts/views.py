@@ -8,6 +8,7 @@ from category.models import Category
 import random
 from comment.models import Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from itertools import chain
 
 # Create your views here.
 
@@ -390,7 +391,56 @@ def all_posts(request):
     popularposts2 = Posts.objects.filter(act=1).order_by('-views')[:3]
     lastposts2 = Posts.objects.filter(act=1).order_by('-pk')[:4]
 
-    return render(request, 'front/all_posts_full.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'lastposts2':lastposts2, 'allposts':allposts})
+    now = datetime.datetime.now()
+    year = now.year
+    month = now.month
+    day = now.day
+
+    if len(str(day)) == 1:
+        day = "0" + str(day)
+    if len(str(month)) == 1:
+        month = "0" + str(month)
+
+    today = str(year) + "/" + str(month) + "/" + str(day)
+
+    f_rom = []
+    t_o = []
+
+    for i in range(30):
+
+        b = datetime.datetime.now() - datetime.timedelta(days=i)
+
+        year = b.year
+        month = b.month
+        day = b.day
+
+        if len(str(day)) == 1:
+            day = "0" + str(day)
+        if len(str(month)) == 1:
+            month = "0" + str(month)
+        
+        b = str(year) + "/" + str(month) + "/" + str(day)
+
+        f_rom.append(b)
+
+    for i in range(30):
+    
+        b = datetime.datetime.now() - datetime.timedelta(days=i)
+
+        year = b.year
+        month = b.month
+        day = b.day
+
+        if len(str(day)) == 1:
+            day = "0" + str(day)
+        if len(str(month)) == 1:
+            month = "0" + str(month)
+        
+        b = str(year) + "/" + str(month) + "/" + str(day)
+
+        t_o.append(b)
+
+    return render(request, 'front/all_posts_full.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'lastposts2':lastposts2, 'allposts':allposts, 'f_rom':f_rom, 't_o':t_o})
 
 
 def all_posts_search(request):
@@ -398,9 +448,64 @@ def all_posts_search(request):
     if request.method == 'POST':
 
         txt = request.POST.get('txt')
-        print(txt)
-    
-    allposts = Posts.objects.filter(name=txt)
+        catid = request.POST.get('category')
+        f_rom = request.POST.get('from')
+        t_o = request.POST.get('to')
+        
+        if f_rom != "0" and t_o != "0":
+
+            if t_o < f_rom:
+
+                msg = "To Date must not be less than From Date"
+                return render(request, 'front/message.html', {'msg': msg})
+
+    if catid == "0":
+
+        if f_rom != "0" and t_o != "0":
+            a = Posts.objects.filter(name__contains=txt,date__gte=f_rom, date__lte=t_o)
+            b = Posts.objects.filter(short_txt__contains=txt, date__gte=f_rom, date__lte=t_o)
+            c = Posts.objects.filter(body_txt__contains=txt, date__gte=f_rom, date__lte=t_o)
+
+        elif f_rom != "0":
+            a = Posts.objects.filter(name__contains=txt,date__gte=f_rom)
+            b = Posts.objects.filter(short_txt__contains=txt, date__gte=f_rom)
+            c = Posts.objects.filter(body_txt__contains=txt, date__gte=f_rom)
+
+        elif t_o != "0":
+            a = Posts.objects.filter(name__contains=txt, date__lte=t_o)
+            b = Posts.objects.filter(short_txt__contains=txt, date__lte=t_o)
+            c = Posts.objects.filter(body_txt__contains=txt, date__lte=t_o)
+
+        else:
+            a = Posts.objects.filter(name__contains=txt)
+            b = Posts.objects.filter(short_txt__contains=txt)
+            c = Posts.objects.filter(body_txt__contains=txt)
+
+    else:
+
+        if f_rom != "0" and t_o != "0":
+            a = Posts.objects.filter(name__contains=txt, ocatid=catid, date__gte=f_rom, date__lte=t_o)
+            b = Posts.objects.filter(short_txt__contains=txt, ocatid=catid, date__gte=f_rom, date__lte=t_o)
+            c = Posts.objects.filter(body_txt__contains=txt, ocatid=catid, date__gte=f_rom, date__lte=t_o)
+
+        elif f_rom != "0":
+            a = Posts.objects.filter(name__contains=txt, ocatid=catid, date__gte=f_rom)
+            b = Posts.objects.filter(short_txt__contains=txt, ocatid=catid, date__gte=f_rom)
+            c = Posts.objects.filter(body_txt__contains=txt, ocatid=catid, date__gte=f_rom)
+
+        elif t_o != "0":
+            a = Posts.objects.filter(name__contains=txt, ocatid=catid, date__lte=t_o)
+            b = Posts.objects.filter(short_txt__contains=txt, ocatid=catid, date__lte=t_o)
+            c = Posts.objects.filter(body_txt__contains=txt, ocatid=catid, date__lte=t_o)
+
+        else:
+            a = Posts.objects.filter(name__contains=txt, ocatid=catid)
+            b = Posts.objects.filter(short_txt__contains=txt, ocatid=catid)
+            c = Posts.objects.filter(body_txt__contains=txt, ocatid=catid)
+
+    # Merge queries
+    allposts = list(chain(a,b,c))
+    allposts = list(dict.fromkeys(allposts))
 
     site = Main.objects.get(pk=2)
     posts = Posts.objects.filter(act=1).order_by('-pk')
@@ -411,4 +516,53 @@ def all_posts_search(request):
     popularposts2 = Posts.objects.filter(act=1).order_by('-views')[:3]
     lastposts2 = Posts.objects.filter(act=1).order_by('-pk')[:4]
 
-    return render(request, 'front/all_posts_full.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'lastposts2':lastposts2, 'allposts':allposts})
+    now = datetime.datetime.now()
+    year = now.year
+    month = now.month
+    day = now.day
+
+    if len(str(day)) == 1:
+        day = "0" + str(day)
+    if len(str(month)) == 1:
+        month = "0" + str(month)
+
+    today = str(year) + "/" + str(month) + "/" + str(day)
+
+    f_rom = []
+    t_o = []
+
+    for i in range(30):
+
+        b = datetime.datetime.now() - datetime.timedelta(days=i)
+
+        year = b.year
+        month = b.month
+        day = b.day
+
+        if len(str(day)) == 1:
+            day = "0" + str(day)
+        if len(str(month)) == 1:
+            month = "0" + str(month)
+        
+        b = str(year) + "/" + str(month) + "/" + str(day)
+
+        f_rom.append(b)
+
+    for i in range(30):
+    
+        b = datetime.datetime.now() - datetime.timedelta(days=i)
+
+        year = b.year
+        month = b.month
+        day = b.day
+
+        if len(str(day)) == 1:
+            day = "0" + str(day)
+        if len(str(month)) == 1:
+            month = "0" + str(month)
+        
+        b = str(year) + "/" + str(month) + "/" + str(day)
+
+        t_o.append(b)
+
+    return render(request, 'front/all_posts_full.html', {'site':site, 'posts':posts, 'category':category, 'subcategory':subcategory, 'lastposts':lastposts, 'popularposts':popularposts, 'popularposts2':popularposts2, 'lastposts2':lastposts2, 'allposts':allposts, 'f_rom':f_rom, 't_o':t_o})
