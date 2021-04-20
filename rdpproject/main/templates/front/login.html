@@ -54,12 +54,15 @@
                         <!-- Title -->
                         <h1 class="push-top-bottom">
                             <i class="gi gi-flash"></i> <strong>Login</strong><br>
-                            <small>Rare Disease Platform</small>
+                            <small>Rare Disease Platform</small>                         
+                            <h2 class="mb-0">Rare Disease Platform provides patients and healthcare professionals a medium to share and discuss 
+                                rare diseases. Users can create, update and delete blog posts
+                            </h2>
                         </h1>
                         <!-- END Title -->
 
                         <!-- Key Features -->
-                        <ul class="fa-ul text-muted">
+                        <ul class="fa-ul text-muted push-top-left">
                             
                         </ul>
                         <!-- END Key Features -->
@@ -82,8 +85,8 @@
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
-                                            <input type="text" id="username" name="username" class="form-control input-lg" placeholder="Email">
+                                            <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                                            <input type="text" id="username" name="username" class="form-control input-lg" placeholder="Username">
                                         </div>
                                     </div>
                                 </div>
@@ -108,15 +111,18 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12 text-center">
-                                        <a href="javascript:void(0)" id="link-reminder-login"><small>Forgot password?</small></a> -
-                                        <a href="javascript:void(0)" id="link-register-login"><small>Create a new account</small></a>
+                                        <!-- <a href="javascript:void(0)" id="link-reminder-login"><small>Forgot password?</small></a> - -->
+                                        <a href="javascript:void(0)" id="link-register-login"><small>Create a new account as a Healthcare Worker</small></a>                                        
                                     </div>
+                                    <!-- <div class="col-xs-12 text-center">
+                                        <a href="javascript:void(0)" id="link-register2-login"><small>Create a new account as a Patient</small></a>
+                                    </div> -->
                                 </div>
                             </form>
                             <!-- END Login Form -->
 
                             <!-- Reminder Form -->
-                            <form action="login_alt.html#reminder" method="post" id="form-reminder" class="form-horizontal display-none">
+                            <!-- <form action="login_alt.html#reminder" method="post" id="form-reminder" class="form-horizontal display-none">
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <div class="input-group">
@@ -135,7 +141,7 @@
                                         <small>Did you remember your password?</small> <a href="javascript:void(0)" id="link-reminder"><small>Login</small></a>
                                     </div>
                                 </div>
-                            </form>
+                            </form> -->
                             <!-- END Reminder Form -->
 
                             <!-- Register Form -->
@@ -170,6 +176,14 @@
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <div class="input-group">
+                                            <span class="input-group-addon"><i class="gi gi-home"></i></span>
+                                            <input type="text" id="institution" name="institution" class="form-control input-lg" placeholder="Institution" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
                                             <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
                                             <input type="password" id="password1" name="password1" class="form-control input-lg" placeholder="Password" required>
                                         </div>
@@ -184,14 +198,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group form-actions">
-                                    <div class="col-xs-6">
-                                        <a href="#modal-terms" data-toggle="modal" class="register-terms">Terms</a>
-                                        <label class="switch switch-primary" data-toggle="tooltip" title="Agree to the terms">
-                                            <input type="checkbox" id="terms" name="terms">
-                                            <span></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-6 text-right">
+                                    <div class="col-xs-12 text-center">
                                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Register Account</button>
                                     </div>
                                 </div>
@@ -212,7 +219,7 @@
         <!-- END Login Alternative Row -->
 
         <!-- Modal Terms -->
-        <div id="modal-terms" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- <div id="modal-terms" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -232,7 +239,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- END Modal Terms -->
 
         <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->

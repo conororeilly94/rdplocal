@@ -1,4 +1,5 @@
 from django.conf.urls import include, url
+from django.urls import path
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -13,6 +14,8 @@ urlpatterns = [
     url(r'', include('manager.urls')), # Manager Form
     url(r'', include('newsletter.urls')),
     url(r'', include('comment.urls')),
+    # url(r'', include('publicchat.urls')),
+    path('publicchat/', include('publicchat.urls'))
 ]
 
 if settings.DEBUG:

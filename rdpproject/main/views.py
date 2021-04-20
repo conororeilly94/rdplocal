@@ -51,16 +51,6 @@ def panel(request):
     for i in perms:
         if i.codename == "master_user" : perm = 1
 
-    # test = ['!', '@', '#', '$', '%']
-    # rand = ""
-    # for i in range(5):
-    #     rand = rand + random.choice(string.ascii_letters)
-    #     rand += random.choice(test)
-    #     rand += str(random.randint(0,9))
-
-    # count = Posts.objects.count()
-    # rand = Posts.objects.all()[randint(0,count-1)]
-
     return render(request, 'back/home.html', {})
 
 
@@ -91,6 +81,7 @@ def myregister(request):
         name = request.POST.get('name')
         uname = request.POST.get('uname')
         email = request.POST.get('email')
+        institution = request.POST.get('institution')
         pass1 = request.POST.get('password1')
         pass2 = request.POST.get('password2')
 
@@ -131,8 +122,8 @@ def myregister(request):
 
         # If user and email not in DB, then create user
         if len(User.objects.filter(username = uname)) == 0 and len(User.objects.filter(email = email)) == 0:
-            user = User.objects.create_user(username = uname, email = email, password = pass1)
-            b = Manager(name = name, utxt = uname, email = email)
+            user = User.objects.create_user(username = uname, email = email, password = pass1, institution = institution)
+            b = Manager(name = name, utxt = uname, email = email, institution = institution)
             b.save()
 
     return render(request, 'front/login.html')

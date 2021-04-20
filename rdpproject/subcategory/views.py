@@ -34,10 +34,10 @@ def subcat_add(request):
             error = "You Must Enter a Title"
             return render(request, 'back/error.html', {'error':error})
 
-        if len(SubCategory.objects.filter(name=name)) != 0:
+        # if len(SubCategory.objects.filter(name=name)) != 0:
 
-            error = "This Category Already Exists"
-            return render(request, 'back/error.html', {'error':error})
+        #     error = "This Category Already Exists"
+        #     return render(request, 'back/error.html', {'error':error})
 
         catname = Category.objects.get(pk=catid).name
 
@@ -46,3 +46,26 @@ def subcat_add(request):
         return redirect('subcat_list')
         
     return render(request, 'back/subcategory_add.html', {'category':category})
+
+
+def subcat_del(request, pk):
+    
+    # Authenticating user
+    if not request.user.is_authenticated:
+        return redirect('mylogin')
+    # End login check
+
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == "masteruser" : perm = 1
+
+    if perm == 0:
+        a = SubCategory.objects.get(pk=pk).author
+        if str(a) != str(request.user):
+            error = "Access Denied"
+            return render(request, 'back/error.html', {'error':error})
+
+    subcategory = SubCategory.objects.filter(pk=pk)
+    subcategory.delete()
+
+    return redirect('subcat_list')
