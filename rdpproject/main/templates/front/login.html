@@ -60,10 +60,8 @@
                             </h2>
                         </h1>
                         <!-- END Title -->
-
                         <!-- Key Features -->
                         <ul class="fa-ul text-muted push-top-left">
-                            
                         </ul>
                         <!-- END Key Features -->
                     </div>
@@ -76,7 +74,6 @@
                             <h1><strong>Login</strong> or <strong>Register</strong></h1>
                         </div>
                         <!-- END Login Title -->
-
                         <!-- Login Block -->
                         <div class="block push-bit">
                             <!-- Login Form -->
@@ -99,51 +96,22 @@
                                     </div>
                                 </div>
                                 <div class="form-group form-actions">
-                                    <!-- <div class="col-xs-4">
-                                        <label class="switch switch-primary" data-toggle="tooltip" title="Remember Me?">
-                                            <input type="checkbox" id="login-remember-me" name="login-remember-me" checked>
-                                            <span></span>
-                                        </label>
-                                    </div> -->
                                     <div class="col-xs-8 text-right">
                                         <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Login to My Account</button>
+                                    </div>                                    
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12 text-center">
+                                        <a href="javascript:void(0)" id="link-register-login"><small>Create a New Account</small></a>                                        
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12 text-center">
-                                        <!-- <a href="javascript:void(0)" id="link-reminder-login"><small>Forgot password?</small></a> - -->
-                                        <a href="javascript:void(0)" id="link-register-login"><small>Create a new account as a Healthcare Worker</small></a>                                        
+                                        <a href="/"><small>Go back to the Home Page</small></a>                                        
                                     </div>
-                                    <!-- <div class="col-xs-12 text-center">
-                                        <a href="javascript:void(0)" id="link-register2-login"><small>Create a new account as a Patient</small></a>
-                                    </div> -->
                                 </div>
                             </form>
                             <!-- END Login Form -->
-
-                            <!-- Reminder Form -->
-                            <!-- <form action="login_alt.html#reminder" method="post" id="form-reminder" class="form-horizontal display-none">
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
-                                            <input type="text" id="reminder-email" name="reminder-email" class="form-control input-lg" placeholder="Email">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group form-actions">
-                                    <div class="col-xs-12 text-right">
-                                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Reset Password</button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-12 text-center">
-                                        <small>Did you remember your password?</small> <a href="javascript:void(0)" id="link-reminder"><small>Login</small></a>
-                                    </div>
-                                </div>
-                            </form> -->
-                            <!-- END Reminder Form -->
-
                             <!-- Register Form -->
                             <form action="{% url 'myregister' %}" method="post" id="form-register" class="form-horizontal display-none">
                                 {% csrf_token %}
@@ -155,7 +123,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <div class="input-group">
@@ -164,20 +131,11 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
                                             <input type="text" id="email" name="email" class="form-control input-lg" placeholder="Email" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="gi gi-home"></i></span>
-                                            <input type="text" id="institution" name="institution" class="form-control input-lg" placeholder="Institution" required>
                                         </div>
                                     </div>
                                 </div>
@@ -207,6 +165,11 @@
                                         <small>Do you have an account?</small> <a href="javascript:void(0)" id="link-register"><small>Login</small></a>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12 text-center">
+                                        <small>Go back to the Home Page?</small> <a href="/" id="link-register"><small>Home</small></a>
+                                    </div>
+                                </div>
                             </form>
                             <!-- END Register Form -->
                         </div>
@@ -218,36 +181,11 @@
         </div>
         <!-- END Login Alternative Row -->
 
-        <!-- Modal Terms -->
-        <!-- <div id="modal-terms" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Terms &amp; Conditions</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h4>Title</h4>
-                        <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <h4>Title</h4>
-                        <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <h4>Title</h4>
-                        <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- END Modal Terms -->
-
         <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
         <script src="{% static 'back/js/vendor/jquery.min.js' %}"></script>
         <script src="{% static 'back/js/vendor/bootstrap.min.js' %}"></script>
         <script src="{% static 'back/js/plugins.js' %}"></script>
         <script src="{% static 'back/js/app.js' %}"></script>
-
         <!-- Load and execute javascript code used only in this page -->
         <script src="{% static 'back/js/pages/login.js' %}"></script>
         <script>$(function(){ Login.init(); });</script>

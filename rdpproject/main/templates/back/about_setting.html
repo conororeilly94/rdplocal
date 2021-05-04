@@ -22,7 +22,6 @@
 </ul>
 <!-- END Datatables Header -->
 <!-- Page content -->
-
     <div class="row">
         <div class="col-md-12">
             <!-- Basic Form Elements Block -->
@@ -32,7 +31,6 @@
                     <h2><strong>Edit</strong> About</h2>
                 </div>
                 <!-- END Form Elements Title -->
-
                 <!-- Basic Form Elements Content -->
                 <form action="{% url 'about_setting' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                     {% csrf_token %}                    
@@ -41,24 +39,20 @@
                             <textarea type="text" id="text" name="text" rows="5" class="form-control" placeholder="Summary">{{about}}</textarea>
                         </div>                        
                     </div>
-
                     <script>
                         CKEDITOR.replace('text')                        
                     </script>
-
                     <div class="form-group">
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>  
                         </div>                        
-                    </div>  
-                                                     
+                    </div>                        
                 </form>
                 <!-- END Basic Form Elements Content -->
             </div>
             <!-- END Basic Form Elements Block -->
         </div>
     </div>
-
 
 {% endblock %}
 

@@ -22,7 +22,6 @@
 </ul>
 <!-- END Datatables Header -->
 <!-- Page content -->
-
     <div class="row">
         <div class="col-md-12">
             <!-- Basic Form Elements Block -->
@@ -32,7 +31,6 @@
                     <h2><strong>Edit</strong> Posts</h2>
                 </div>
                 <!-- END Form Elements Title -->
-
                 <!-- Basic Form Elements Content -->
                 <form action="{% url 'posts_edit' pk=pk %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                     {% csrf_token %}
@@ -54,21 +52,17 @@
                             <textarea type="text" id="postsummary" name="postsummary" rows="5" class="form-control" placeholder="Summary">{{posts.short_txt}}</textarea>
                         </div>                        
                     </div>
-
                     <script>
                         CKEDITOR.replace('postsummary')                        
                     </script>
-
                     <div class="form-group">
                         <div class="col-md-12">
                             <textarea type="text" id="postbody" name="postbody" rows="5" class="form-control" placeholder="Body">{{posts.body_txt}}</textarea>
                         </div>                        
                     </div>
-                    
                     <script>
                         CKEDITOR.replace('postbody')                        
                     </script>
-
                     <div class="form-group">
                         <div class="col-md-6">
                             <input type="file" id="myfile" name="myfile" rows="5" class="form-control" placeholder="Body">
@@ -83,15 +77,13 @@
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>  
                         </div>                        
-                    </div>  
-                                                     
+                    </div>                     
                 </form>
                 <!-- END Basic Form Elements Content -->
             </div>
             <!-- END Basic Form Elements Block -->
         </div>
     </div>
-
 
 {% endblock %}
 

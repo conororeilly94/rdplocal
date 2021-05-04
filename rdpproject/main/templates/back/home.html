@@ -3,8 +3,10 @@
 
 {% load static %}
 {% load humanize %}
+{% load extra_auth %}
 
 {% block mainblock %}
+{% if request.user|has_group:"masteruser" or request.user|has_group:"healthworker" or request.user|has_group:"patient" %}
 <div class="row">
     <h1>Rare Disease Platform Dashboard</h1>
 </div>
@@ -14,6 +16,19 @@
         rare diseases. Users can create, update and delete blog posts
     </h3>
 </div>
+
+{% else %}
+<div class="row">
+    <h1>No access</h1>
+</div>
+<div class="row">
+    <h2>Posts</h2>
+    <h3 class="mb-0">
+        We are still verifying your account. You can still view posts and engage in the Live Group Chat but you will not be able to create posts or categories. 
+        Come back shortly
+    </h3>
+</div>
+{% endif %}
 <!-- END Mini Top Stats Row -->
 
 <!-- {{rand|intword}} -->

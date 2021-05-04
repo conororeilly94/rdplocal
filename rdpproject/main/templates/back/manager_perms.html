@@ -17,7 +17,6 @@
     <li><a href="/panel/manager/perms/">Permissions</a></li>
 </ul>
 <!-- END Datatables Header -->
-
 <div class="row">
     <div class="col-md-12">
         <!-- Basic Form Elements Block -->
@@ -27,7 +26,6 @@
                 <h2><strong>Add</strong> Permission</h2>
             </div>
             <!-- END Form Elements Title -->
-
             <!-- Basic Form Elements Content -->
             <form action="{% url 'manager_perms_add' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                 {% csrf_token %}
@@ -39,8 +37,9 @@
                         <input type="text"  id="cname" name="cname" class="form-control" placeholder="Permission Code Name" required>
                     </div>
                     <div class="col-md-4">                       
-                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>                 
-                    </div>                                                 
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>Submit</button>                 
+                    </div>   
+                </div>                                              
             </form>
             <!-- END Basic Form Elements Content -->
         </div>
@@ -53,7 +52,6 @@
     <div class="block-title">
         <h2><strong>Groups</strong> List</h2>
     </div>
-
     <div class="table-responsive">
         <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
             <thead>
@@ -78,7 +76,6 @@
     </div>
 </div>
 <!-- END Datatables Content -->
-
 
 {% endblock %}
 

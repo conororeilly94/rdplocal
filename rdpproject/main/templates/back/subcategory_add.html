@@ -18,7 +18,6 @@
 </ul>
 <!-- END Datatables Header -->
 <!-- Page content -->
-
     <div class="row">
         <div class="col-md-12">
             <!-- Basic Form Elements Block -->
@@ -28,7 +27,6 @@
                     <h2><strong>Add</strong> Subcategory</h2>
                 </div>
                 <!-- END Form Elements Title -->
-
                 <!-- Basic Form Elements Content -->
                 <form action="{% url 'subcat_add' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                     {% csrf_token %}
@@ -41,24 +39,20 @@
                                 {% for i in category %}
                                 <option value="{{i.pk}}">{{i.name}}</option>
                                 {% endfor %}                               
-                            </select>                                           
-                     
+                            </select> 
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="col-md-6">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>  
                         </div>
-                    </div>
-                                                    
+                    </div>                          
                 </form>
                 <!-- END Basic Form Elements Content -->
             </div>
             <!-- END Basic Form Elements Block -->
         </div>
     </div>
-
 
 {% endblock %}
 

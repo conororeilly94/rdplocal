@@ -23,23 +23,20 @@
     <div class="block-title">
         <h2><strong>Answer</strong> Query</h2>
     </div>
-    
     <form action="{% url 'answer_contactform' pk=pk %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
         {% csrf_token %}
         <div class="form-group">
             <div class="col-md-12">
-                <textarea type="text" rows="10" id="txt" name="txt" class="form-control">Your Message</textarea>
+                <textarea type="text" rows="10" id="txt" name="txt" class="form-control" placeholder="Your Message"></textarea>
             </div>
-            
             <div class="col-md-6">
                 <br/>     
                 <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>         
-            </div>                                            
+            </div> 
+        </div>                                           
     </form>
 </div>
 <!-- END Datatables Content -->
-
-
 
 {% endblock %}
 

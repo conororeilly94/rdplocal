@@ -17,19 +17,17 @@
     <li><a href="/panel/contactform/">Message List</a></li>
 </ul>
 <!-- END Datatables Header -->
-
 <!-- Datatables Content -->
 <div class="block full">
     <div class="block-title">
         <h2><strong>Message</strong> List</h2>
     </div>
-
     <div class="table-responsive">
-        <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+        <table class="table table-vcenter table-condensed table-bordered">
             <thead>
                 <tr>
                     <th class="text-center">ID</th>
-                    <th>Date & Time</th>
+                    <th>Date</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Message</th>
@@ -40,7 +38,7 @@
                 {% for i in msg %}
                 <tr>
                     <td class="text-center">{{i.pk}}</td>
-                    <td>{{i.date}} | {{i.time}}</td>
+                    <td>{{i.date}}</td>
                     <td>{{i.name}}</td>
                     <td>{{i.email}}</td>
                     <td>{{i.text}}</td>
@@ -57,7 +55,6 @@
     </div>
 </div>
 <!-- END Datatables Content -->
-
 
 {% endblock %}
 

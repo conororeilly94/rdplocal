@@ -18,7 +18,7 @@ def posts_detail(request, word):
     posts = Posts.objects.all().order_by('-pk')
     category = Category.objects.all()
     subcategory = SubCategory.objects.all()
-    lastposts = Posts.objects.all().order_by('-pk')[:3]
+    lastposts = Posts.objects.all().order_by('-pk')[:3] 
 
     showposts = Posts.objects.filter(name=word)
     popularposts = Posts.objects.all().order_by('-views')
@@ -106,7 +106,7 @@ def posts_list(request):
 
 
 def posts_add(request):
-
+    
     # Authenticating user
     if not request.user.is_authenticated:
         return redirect('mylogin')
@@ -359,7 +359,7 @@ def posts_publish(request, pk):
     posts.save()
 
     return redirect('posts_list')
-
+    
 
 def posts_all_show(request, word):
 

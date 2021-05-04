@@ -1,17 +1,21 @@
+{% load static %}
+{% load extra_auth %}
 <!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link
+    rel="icon"
+    type="image/png"
+    href="{%static 'front/images/RDP-logo.png' %}"
+    />
     <title>Rare Disease Platform | Chat Room</title>
   </head>
   <body>
-
     <div class="container">
         <br/>
         <div class="row d-flex justify-content-center">
@@ -29,10 +33,11 @@
                     </div>
                     <input class="btn btn-secondary btn-lg btn-block" id="submit" type="button" value="Send">
                 </form>
+                <br/>
+                <a class="btn btn-danger" href="/">Back to Home Page</a>
             </div>
         </div>
     </div>
-
 
     {{ request.user.username|json_script:"user_username" }}
     {{ room_name|json_script:"room-name" }}
@@ -47,7 +52,6 @@
             }));
             messageInputDom.value = '';
         };
-
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
         const chatSocket = new WebSocket(
@@ -57,15 +61,12 @@
             roomName +
             '/'
         );
-
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
             console.log(data)
             document.querySelector('#chat-text').value += (data.username + ': ' + data.message + '\n')
         }
-        
     </script>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

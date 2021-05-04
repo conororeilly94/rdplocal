@@ -13,7 +13,7 @@
     <link
       rel="icon"
       type="image/png"
-      href="{%static 'front/images/icons/favicon.png' %}"
+      href="{%static 'front/images/RDP-logo.png' %}"
     />
     <!--===============================================================================================-->
     <link
@@ -79,35 +79,33 @@
                 </a>
               </div>
             </div>
-            
             <div class="flex-wr-e-c">
               <div class="left-topbar">
-                
-                {% if request.user|has_group:"test" %}
+                {% if user.is_authenticated %}
                   <a href="/publicchat/chat" class="left-topbar-item"> Live Chat </a>
                 {% endif %}
-                
-                
+                <a href="/" class="left-topbar-item">Home</a>
                 <a href="/about" class="left-topbar-item"> About </a>
-
                 <a href="/contact" class="left-topbar-item"> Contact </a>
-
-                <a href="/login" class="left-topbar-item"> Sing Up/Sign In </a>
+                {% if user.is_authenticated %}
+                  <a href="/panel" class="left-topbar-item">Admin</a>
+                  <a href="/logout" class="left-topbar-item">Logout</a>
+                  <p class="left-topbar-item">Hello {{user}}</p>
+                {% else %}
+                  <a href="/login" class="left-topbar-item"> Sign Up/Sign In </a>
+                {% endif %}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!--  -->
-      <div class="wrap-logo no-banner container">
-        <!-- Logo desktop -->
-        <div class="logo">
-          <a href="/"><img src="{{site.logourl}}" alt="LOGO" /></a>
-        </div>
+      <div>
+        <a href="/"><center><img src="{{site.logourl}}" alt="LOGO" style="width:400px; height:320px; margin-bottom: -150px"/></center></a>
       </div>
 
-      <!--  -->
+      <div class="wrap-logo no-banner container">
+      </div>
       <div class="wrap-main-nav">
         <div class="main-nav">
           <!-- Menu desktop -->
@@ -115,12 +113,10 @@
             <a class="logo-stick" href="/">
               <img src="{{site.logourl}}" alt="LOGO" />
             </a>
-
             <ul class="main-menu justify-content-center">
               <li class="main-menu-active">
                 <a href="/">Home</a>
               </li>
-
               {% for i in category %}
                 {% if i.count != 0 %}
                   <li class="mega-menu-item">
@@ -128,14 +124,12 @@
                     <div class="sub-mega-menu">
                       <div class="nav flex-column nav-pills" role="tablist">
                         <a class="nav-link active" data-toggle="pill" href="#news-0" role="tab">All</a>
-
                         {% for subcategory in subcategory %}
                           {% if subcategory.catid == i.pk %}
                             <a class="nav-link" data-toggle="pill" href="#{{subcategory.pk}}" role="tab">{{subcategory.name}}</a>
                           {% endif %}
                         {% endfor %}
                       </div>
-
                       <div class="tab-content">
                         <div class="tab-pane show active" id="news-0" role="tabpanel">
                           <div class="row">
@@ -152,80 +146,68 @@
                                           {{a.name}}
                                         </a>
                                       </h5>
-
                                       <span class="cl8">
-                                        <a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+                                        <a class="f1-s-6 cl8 hov-cl10 trans-03">
                                           {{a.catname}}
                                         </a>
-
                                         <span class="f1-s-3 m-rl-3">
                                           -
                                         </span>
-
                                         <span class="f1-s-3">
                                           {{a.date}}
                                         </span>
                                       </span>
                                     </div>
+                                    <br/>
                                   </div>
                                 </div>
                               {% endif %}
                             {% endfor %}
                           </div>
                         </div>
-
                         {% for subcategory2 in subcategory %}
-                        <div class="tab-pane" id="{{subcategory2.pk}}" role="tabpanel">
-                          <div class="row">
-
-                            {% for a in posts %}
-                            {% if a.catid == subcategory2.pk %}
-                            <div class="col-3">	
-                              <div>
-                                <a href="{% url 'posts_detail' word=a.name %}" class="wrap-pic-w hov1 trans-03">
-                                  <img style="display: inline-block; width:180px; height:120px;" src="{{a.imgurl}}" alt="IMG">
-                                </a>
-
-                                <div class="p-t-10">
-                                  <h5 class="p-b-5">
-                                    <a href="#" class="f1-s-5 cl3 hov-cl10 trans-03">
-                                      {{a.name}}
-                                    </a>
-                                  </h5>
-
-                                  <span class="cl8">
-                                    <a href="{% url 'posts_detail' word=a.name %}" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                      {{a.catname}}
-                                    </a>
-
-                                    <span class="f1-s-3 m-rl-3">
-                                      -
-                                    </span>
-
-                                    <span class="f1-s-3">
-                                      {{a.date}}
-                                    </span>
-                                  </span>
-                                </div>
-                              </div>
+                          <div class="tab-pane" id="{{subcategory2.pk}}" role="tabpanel">
+                            <div class="row">
+                              {% for a in posts %}
+                                {% if a.catid == subcategory2.pk %}
+                                  <div class="col-3">	
+                                    <div>
+                                      <a href="{% url 'posts_detail' word=a.name %}" class="wrap-pic-w hov1 trans-03">
+                                        <img style="display: inline-block; width:180px; height:120px;" src="{{a.imgurl}}" alt="IMG">
+                                      </a>
+                                      <div class="p-t-10">
+                                        <h5 class="p-b-5">
+                                          <a href="{% url 'posts_detail' word=a.name %}" class="f1-s-5 cl3 hov-cl10 trans-03">
+                                            {{a.name}}
+                                          </a>
+                                        </h5>
+                                        <span class="cl8">
+                                          <a class="f1-s-6 cl8 hov-cl10 trans-03">
+                                            {{a.catname}}
+                                          </a>
+                                          <span class="f1-s-3 m-rl-3">
+                                            -
+                                          </span>
+                                          <span class="f1-s-3">
+                                            {{a.date}}
+                                          </span>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                {% endif %}
+                              {% endfor %}
                             </div>
-                            {% endif %}
-                            {% endfor %}
-
                           </div>
-                        </div>
-                        {% endfor %}
-                        
+                        {% endfor %}                        
                       </div>
                     </div>
                   </li>
                 {% endif %}
               {% endfor %}
-
               <li class="main-menu">
                 <a href="/all/posts/">All Posts</a>
               </li>
-
             </ul>
           </nav>
         </div>
@@ -243,14 +225,10 @@
             <div class="col-lg-4 p-b-20">
               <div class="size-h-3 flex-s-c">
                 <a href="/">
-                  <img
-                    class="max-s-full"
-                    src="{{site.logourl2}}"
-                    alt="LOGO"
-                  />
+                  <img class="max-s-full" src="{{site.logourl2}}" alt="LOGO"/>
                 </a>
               </div>
-
+              <br/><br/>
               <div>
                 <p class="f1-s-1 cl11 p-b-16">
                   {{site.about | safe}}
@@ -259,44 +237,36 @@
                 <form action="{% url 'news_letter' %}" method="POST">
                   {% csrf_token %}
                   <input class="bo-1-rad-3 bocl13 size-a-19 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="txt" name="txt" placeholder="Input Your Email or Phone Number">
-                  <button type="submit" class="size-a-20 bg1 borad-2 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-20">
-                    Send
-                  </button>
+                  <button type="submit" class="size-a-20 bg1 borad-2 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-20">Send</button>
                 </form>
               </div>
             </div>
-
             <div class="col-sm-6 col-lg-4 p-b-20">
               <div class="size-h-3 flex-s-c">
                 <h5 class="f1-m-7 cl0">Popular Posts</h5>
               </div>
-
               <ul>
                 {% for pop in popularposts2 %}
                 <li class="flex-wr-sb-s p-b-20">
                   <a href="{% url 'posts_detail' word=pop.name %}" class="size-w-4 wrap-pic-w hov1 trans-03">
                     <img src="{{pop.imgurl}}" alt="IMG" />
                   </a>
-
                   <div class="size-w-5">
                     <h6 class="p-b-5">
                       <a href="{% url 'posts_detail' word=pop.name %}" class="f1-s-5 cl11 hov-cl10 trans-03">
                         {{pop.name}}
                       </a>
                     </h6>
-
                     <span class="f1-s-3 cl6"> {{pop.date}} </span>
                   </div>
                 </li>
                 {% endfor %}
               </ul>
             </div>
-
             <div class="col-sm-6 col-lg-4 p-b-20">
               <div class="size-h-3 flex-s-c">
                 <h5 class="f1-m-7 cl0">Category</h5>
               </div>        
-
               <ul class="m-t--12">                
                 {% for i in category %}
                   {% if i.count != 0 %}
@@ -308,60 +278,43 @@
                   {% endif %}
                 {% endfor %}
               </ul>
-
             </div>
           </div>
         </div>
       </div>
-
       <div class="bg11">
         <div class="container size-h-4 flex-c-c p-tb-15">
           <span class="f1-s-1 cl0 txt-center">
-
-            <a href="#" class="f1-s-1 cl10 hov-link1"
-              ><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            <a href="#" class="f1-s-1 cl10 hov-link1">
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
               Copyright &copy;
               <script>
                 document.write(new Date().getFullYear());
               </script>
-              All rights reserved Conor O Reilly x17101701</a
-            >
+              All rights reserved Conor O Reilly x17101701
+            </a>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           </span>
         </div>
       </div>
     </footer>
-
     <!-- Back to top -->
     <div class="btn-back-to-top" id="myBtn">
       <span class="symbol-btn-back-to-top">
         <span class="fas fa-angle-up"></span>
       </span>
     </div>
-
     <!-- Modal Video 01-->
-    <div
-      class="modal fade"
-      id="modal-video-01"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document" data-dismiss="modal">
-        <div
-          class="close-mo-video-01 trans-0-4"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">
           &times;
         </div>
-
         <div class="wrap-video-mo-01">
           <div class="video-mo-01"></div>
         </div>
       </div>
     </div>
-
     <!--===============================================================================================-->
     <script src="{%static 'front/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
     <!--===============================================================================================-->
@@ -371,6 +324,5 @@
     <script src="{%static 'front/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
     <!--===============================================================================================-->
     <script src="{%static 'front/js/main.js' %}"></script>
-    
   </body>
 </html>

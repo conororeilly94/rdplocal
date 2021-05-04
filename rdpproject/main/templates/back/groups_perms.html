@@ -17,7 +17,6 @@
     <li><a href="/panel/manager/group/">Permissions</a></li>
 </ul>
 <!-- END Datatables Header -->
-
 <div class="row">
     <div class="col-md-12">
         <!-- Basic Form Elements Block -->
@@ -27,7 +26,6 @@
                 <h2><strong>Add</strong> Group Permissions</h2>
             </div>
             <!-- END Form Elements Title -->
-
             <!-- Basic Form Elements Content -->
             <form action="{% url 'groups_perms_add' name=name %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                 {% csrf_token %}
@@ -41,8 +39,7 @@
                     </div>
                     <div class="col-md-6">                       
                         <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>                 
-                    </div>
-                                                 
+                    </div>                                         
             </form>
             <!-- END Basic Form Elements Content -->
         </div>
@@ -55,7 +52,6 @@
     <div class="block-title">
         <h2><strong>Groups Permissions</strong> List</h2>
     </div>
-
     <div class="table-responsive">
         <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
             <thead>
@@ -80,7 +76,6 @@
     </div>
 </div>
 <!-- END Datatables Content -->
-
 
 {% endblock %}
 

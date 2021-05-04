@@ -8,7 +8,7 @@ class Comment(models.Model):
 
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
-    cm = models.TextField()
+    cm = models.TextField(null=True)
     posts_id = models.IntegerField()
     date = models.CharField(max_length=12)
     time = models.CharField(max_length=10)
