@@ -1,12 +1,5 @@
-/*
- *  Document   : login.js
- *  Author     : pixelcave
- *  Description: Custom javascript code used in Login page
- */
-
 var Login = function() {
 
-    // Function for switching form views (login, reminder and register forms)
     var switchView = function(viewHide, viewShow, viewHash){
         viewHide.slideUp(250);
         viewShow.slideDown(250, function(){
@@ -22,13 +15,17 @@ var Login = function() {
 
     return {
         init: function() {
-            /* Switch Login, Reminder and Register form views */
+            /* Switch Login */
             var formLogin       = $('#form-login'),
-                formReminder    = $('#form-reminder'),
                 formRegister    = $('#form-register');
+                formRegister_reg    = $('#form-register-reg');
 
             $('#link-register-login').click(function(){
                 switchView(formLogin, formRegister, 'register');
+            });
+
+            $('#link-register-login-reg').click(function(){
+                switchView(formLogin, formRegister, 'register-reg');
             });
 
             $('#link-register').click(function(){
@@ -43,25 +40,14 @@ var Login = function() {
                 switchView(formReminder, formLogin, '');
             });
 
-            // If the link includes the hashtag 'register', show the register form instead of login
             if (window.location.hash === '#register') {
                 formLogin.hide();
                 formRegister.show();
             }
 
-            // If the link includes the hashtag 'reminder', show the reminder form instead of login
-            if (window.location.hash === '#reminder') {
-                formLogin.hide();
-                formReminder.show();
-            }
-
-            /*
-             *  Jquery Validation, Check out more examples and documentation at https://github.com/jzaefferer/jquery-validation
-             */
-
-            /* Login form - Initialize Validation */
+            /* Login form */
             $('#form-login').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+                errorClass: 'help-block animation-slideDown', 
                 errorElement: 'div',
                 errorPlacement: function(error, e) {
                     e.parents('.form-group > div').append(error);
@@ -93,9 +79,8 @@ var Login = function() {
                 }
             });
 
-            /* Reminder form - Initialize Validation */
             $('#form-reminder').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+                errorClass: 'help-block animation-slideDown', 
                 errorElement: 'div',
                 errorPlacement: function(error, e) {
                     e.parents('.form-group > div').append(error);
@@ -119,9 +104,76 @@ var Login = function() {
                 }
             });
 
-            /* Register form - Initialize Validation */
             $('#form-register').validate({
-                errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+                errorClass: 'help-block animation-slideDown', 
+                errorElement: 'div',
+                errorPlacement: function(error, e) {
+                    e.parents('.form-group > div').append(error);
+                },
+                highlight: function(e) {
+                    $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                    $(e).closest('.help-block').remove();
+                },
+                success: function(e) {
+                    if (e.closest('.form-group').find('.help-block').length === 2) {
+                        e.closest('.help-block').remove();
+                    } else {
+                        e.closest('.form-group').removeClass('has-success has-error');
+                        e.closest('.help-block').remove();
+                    }
+                },
+                rules: {
+                    'register-firstname': {
+                        required: true,
+                        minlength: 2
+                    },
+                    'register-lastname': {
+                        required: true,
+                        minlength: 2
+                    },
+                    'register-email': {
+                        required: true,
+                        email: true
+                    },
+                    'register-password': {
+                        required: true,
+                        minlength: 5
+                    },
+                    'register-password-verify': {
+                        required: true,
+                        equalTo: '#register-password'
+                    },
+                    'register-terms': {
+                        required: true
+                    }
+                },
+                messages: {
+                    'register-firstname': {
+                        required: 'Please enter your firstname',
+                        minlength: 'Please enter your firstname'
+                    },
+                    'register-lastname': {
+                        required: 'Please enter your lastname',
+                        minlength: 'Please enter your lastname'
+                    },
+                    'register-email': 'Please enter a valid email address',
+                    'register-password': {
+                        required: 'Please provide a password',
+                        minlength: 'Your password must be at least 5 characters long'
+                    },
+                    'register-password-verify': {
+                        required: 'Please provide a password',
+                        minlength: 'Your password must be at least 5 characters long',
+                        equalTo: 'Please enter the same password as above'
+                    },
+                    'register-terms': {
+                        required: 'Please accept the terms!'
+                    }
+                }
+            });
+
+            $('#form-register-reg').validate({
+                errorClass: 'help-block animation-slideDown', 
                 errorElement: 'div',
                 errorPlacement: function(error, e) {
                     e.parents('.form-group > div').append(error);

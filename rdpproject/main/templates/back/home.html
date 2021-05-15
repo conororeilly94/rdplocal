@@ -7,13 +7,16 @@
 
 {% block mainblock %}
 {% if request.user|has_group:"masteruser" or request.user|has_group:"healthworker" or request.user|has_group:"patient" %}
-<div class="row">
+<div class="row" style="margin-left: 20px;">
     <h1>Rare Disease Platform Dashboard</h1>
 </div>
-<div class="row">
-    <h2>Posts</h2>
-    <h3 class="mb-0">Rare Disease Platform provides patients and healthcare professionals a medium to share and discuss 
-        rare diseases. Users can create, update and delete blog posts
+<div class="row" style="margin-left: 20px;">
+    <h2>Welcome {{user}}</h2><br/>
+    <h3>
+        The goal of this platform is to provide users access to important information relating to rare diseases.<br/><br/>
+        The aim is to increase awareness about rare diseases and help as many patients suffering from such diseases. The application will aim to serve as a guidance tool and reference point for patients hoping to understand their rare disease more.<br/><br/>
+        The purpose of this application is to develop a user-friendly platform, which should provide an essential and beneficial service to the end user. The application will allow users to access information relating to rare diseases, which will be files such as links to important information, images and more.<br/><br/>
+        The application will also allow authenticated users to communicate to each other in a group chat.
     </h3>
 </div>
 
